@@ -20,6 +20,8 @@
   (let [uia (js/Uint8Array. ab)]
     (js/btoa (fcc uia))))
 
-(defn fetch-binary [url]
-  (let [b64 (go (<! (make-req url)))]
-    b64))
+(defn fetch-binary [func url]
+  (go
+    (let [b64 (<! (make-req url))]
+      (func b64))))
+
